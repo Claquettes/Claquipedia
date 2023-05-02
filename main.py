@@ -8,7 +8,7 @@ def search_wikipedia():
     input_text = entry.get()
     
     # Use the Wikipedia API to search for the input text
-    wiki = wikipediaapi.Wikipedia('en')
+    wiki = wikipediaapi.Wikipedia(lang.get())
     page = wiki.page(input_text)
     
     # If the page exists, display its content in the text box
@@ -22,12 +22,12 @@ def search_wikipedia():
     
 
 def copy_text():
-    # Get the text from the text box
     text = output_text.get('1.0', tk.END)
-    
-    # Copy the text to the clipboard
+    truncated_text = text[:3999] # We truncate the text to 3999 characters, because discord has a limit of 4000 characters
     window.clipboard_clear()
     window.clipboard_append(text)
+    # We change the text of the copy button to indicate that the text has been copied
+    copy_button.config(text='Copied!')
 
 # Create the GUI window
 window = tk.Tk()
@@ -51,32 +51,44 @@ window.option_add('*Text.Foreground', 'white')
 
 
 
+# We add radio buttons to change the language , between english and french
+# We create a variable to store the value of the radio buttons
+lang = tk.StringVar()
+# We create the radio buttons
+english = tk.Radiobutton(window, text='English', variable=lang, value='en')
+french = tk.Radiobutton(window, text='French', variable=lang, value='fr')
+# We set the default value of the radio buttons
+lang.set('en')
+# We add the radio buttons to the window
+english.grid(row=0, column=2)
+french.grid(row=1, column=2)
 
 
 
 # Create the input label and entry field
 input_label = tk.Label(window, text='Input a word:')
-input_label.grid(row=0, column=0)
+input_label.grid(row=3, column=0)
 entry = tk.Entry(window)
-entry.grid(row=0, column=1)
+entry.grid(row=3, column=1)
 
 # Create the search button
 search_button = tk.Button(window, text='Search', command=search_wikipedia)
-search_button.grid(row=1, column=0, columnspan=2)
+search_button.grid(row=4, column=0, columnspan=2)
 
 # Create the copy button
 copy_button = tk.Button(window, text='Copy', command=copy_text)
-copy_button.grid(row=1, column=2)
+copy_button.grid(row=4, column=2)
 
 
 # Create the output label and text box
 output_label = tk.Label(window, text='Wikipedia page content:')
-output_label.grid(row=2, column=0)
-output_text = tk.Text(window)
-output_text.grid(row=3, column=0, columnspan=2)
+output_label.grid(row=5, column=0)
+#we delete every character that is after the 3999th character
+output_text = tk.Text(window, height=10, width=50)
+
+output_text.grid(row=5, column=0, columnspan=2)
 # we add padding to the text box
 output_text.config(padx=10, pady=10)
-
 
 
 # Start the GUI loop
