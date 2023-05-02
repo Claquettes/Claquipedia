@@ -48,22 +48,25 @@ window.option_add('*Text.Foreground', 'white')
 # We change the color of the output text
 window.option_add('*Text.Background', '#24273a')
 window.option_add('*Text.Foreground', 'white')
+# We change the color of the scrollbar, and of the options menu
+window.option_add('*Scrollbar.Background', '#24273a')
+window.option_add('*Scrollbar.Foreground', 'white')
+window.option_add('*TCombobox.Background', '#24273a')
+window.option_add('*TCombobox.Foreground', 'white')
+# We change the color of the menu
+window.option_add('*Menu.Background', '#24273a')
+window.option_add('*Menu.Foreground', 'white')
 
 
 
-# We add radio buttons to change the language , between english and french
-# We create a variable to store the value of the radio buttons
+
 lang = tk.StringVar()
-# We create the radio buttons
-english = tk.Radiobutton(window, text='English', variable=lang, value='en')
-french = tk.Radiobutton(window, text='French', variable=lang, value='fr')
-# We set the default value of the radio buttons
-lang.set('en')
-# We add the radio buttons to the window
-english.grid(row=0, column=2)
-french.grid(row=1, column=2)
-
-
+# We add a label to indicate the purpose of the menu
+lang_label = tk.Label(window, text='Choose a language:')
+lang_label.grid(row=0, column=0, columnspan=2)
+# We create an option menu to choose the language
+lang_menu = tk.OptionMenu(window, lang, 'en', 'fr', 'es', 'de', 'it', 'pt', 'ru', 'ja', 'zh', 'ar', 'hi', 'ko', 'tr', 'pl', 'zh-tw')
+lang_menu.grid(row=0, column=2, columnspan=2)
 
 # Create the input label and entry field
 input_label = tk.Label(window, text='Input a word:')
@@ -78,7 +81,6 @@ search_button.grid(row=4, column=0, columnspan=2)
 # Create the copy button
 copy_button = tk.Button(window, text='Copy', command=copy_text)
 copy_button.grid(row=4, column=2)
-
 
 # Create the output label and text box
 output_label = tk.Label(window, text='Wikipedia page content:')
