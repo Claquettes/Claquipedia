@@ -1,7 +1,14 @@
 import wikipediaapi
 import tkinter as tk
+import webbrowser
 
 def search_wikipedia():
+    #If the language is not selected, we display an error message
+    if lang.get() == '':
+        output_text.delete('1.0', tk.END)
+        output_text.insert('1.0', 'It could be easier if you choose a language.')
+        return
+
     # Get the input text from the entry field
     input_text = entry.get()
     
@@ -26,9 +33,16 @@ def copy_text():
     # We change the text of the copy button to indicate that the text has been copied
     copy_button.config(text='Copied!')
 
+def github():
+    webbrowser.open('https://github.com/Claquettes/Claquipedia')
+
+
+
+
+
 # Create the GUI window
 window = tk.Tk()
-window.title('Wikipedia Search')
+window.title('Claquipedia - Wikipedia search bot')
 
 # We change the color of the window,and of the text
 window.configure(bg='#24273a')
@@ -76,6 +90,11 @@ search_button.grid(row=4, column=0, columnspan=2)
 copy_button = tk.Button(window, text='Copy', command=copy_text)
 copy_button.grid(row=4, column=2)
 
+# Create the github button, that opens the github page of the project
+github_button = tk.Button(window, text='Github', command=github)
+github_button.grid(row=5, column=2)
+
+
 # Create the output label and text box
 output_label = tk.Label(window, text='Wikipedia page content:')
 output_label.grid(row=5, column=0)
@@ -85,7 +104,6 @@ output_text = tk.Text(window, height=10, width=50)
 output_text.grid(row=5, column=0, columnspan=2)
 # we add padding to the text box
 output_text.config(padx=10, pady=10)
-
 
 # Start the GUI loop
 window.mainloop()
