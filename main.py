@@ -1,7 +1,5 @@
 import wikipediaapi
 import tkinter as tk
-from PIL import Image
-
 
 def search_wikipedia():
     # Get the input text from the entry field
@@ -20,7 +18,6 @@ def search_wikipedia():
         output_text.delete('1.0', tk.END)
         output_text.insert('1.0', 'Page not found.')
     
-
 def copy_text():
     text = output_text.get('1.0', tk.END)
     truncated_text = text[:3999] # We truncate the text to 3999 characters, because discord has a limit of 4000 characters
@@ -56,9 +53,6 @@ window.option_add('*TCombobox.Foreground', 'white')
 # We change the color of the menu
 window.option_add('*Menu.Background', '#24273a')
 window.option_add('*Menu.Foreground', 'white')
-
-
-
 
 lang = tk.StringVar()
 # We add a label to indicate the purpose of the menu
